@@ -12,17 +12,20 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11" ]
     steps:
       - uses: actions/checkout@v3
       - name: Install poetry
         run: pipx install poetry==${POETRY_VERSION}
-      - name: Set up Python 3.10
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10
+          python-version: ${{ matrix.python-version }}
           # https://github.com/actions/setup-python#caching-packages-dependencies
           cache: poetry
       - name: Install Nox
         run: poetry install --only nox
       - name: Test with Nox
-        run: poetry run nox -s test-3.10
+        run: poetry run nox -s test-${{ matrix.python-version }}
