@@ -2,8 +2,8 @@ name: Python No Cache
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "*/10 * * * *"
+  # schedule:
+  #   - cron: "*/10 * * * *"
 
 env:
   POETRY_VERSION: "1.2.2"
